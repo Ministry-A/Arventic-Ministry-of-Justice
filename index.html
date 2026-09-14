@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЦЕНТРАЛЬНЫЙ ПОРТАЛ МИНИСТЕРСТВА ЮСТИЦИИ АРВЕНТЫ</title>
+    <style>
+        :root {
+            --bg-main: #0c0e12;
+            --bg-card: #15181f;
+            --bg-inner: #1b1f29;
+            --border-color: #2b3242;
+            --accent-gold: #d4af37;
+            --accent-red: #9e1b1b;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --badge-red: #ff4d4d;
+            --badge-orange: #ff9900;
+            --badge-blue: #3399ff;
+            --badge-green: #33cc66;
+            --badge-gray: #a0aec0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        header {
+            background-color: #050608;
+            border-bottom: 2px solid var(--accent-gold);
+            padding: 35px 20px;
+            text-align: center;
+        }
+
+        .logo-area {
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-top: 8px;
+            letter-spacing: 1.5px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: flex-start;
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        nav button {
+            flex-shrink: 0;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            padding: 18px 22px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+        }
+
+        nav button:hover {
+            color: var(--text-main);
+            background-color: rgba(255,255,255,0.02);
+        }
+
+        nav button.active {
+            color: var(--accent-gold);
+            border-bottom: 3px solid var(--accent-gold);
+            background-color: rgba(212, 175, 55, 0.04);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: var(--accent-gold);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h3 {
+            color: #ffffff;
+            font-size: 15px;
+            margin: 25px 0 15px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding-left: 8px;
+            border-left: 3px solid var(--border-color);
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+        .card-title {
+            font-size: 19px;
+            font-weight: 700;
+            margin-bottom: 18px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            border-left: 4px solid var(--accent-gold);
+            padding-left: 12px;
+        }
+
+        .inner-block {
+            background-color: var(--bg-inner);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 15px 20px;
+            margin-top: 15px;
+        }
+
+        .rank-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--border-color);
+        }
+
+        .rank-header {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 12px;
+        }
+
+        @media(min-width: 768px) {
+            .rank-header {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+
+        .rank-title-text {
+            font-size: 17px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-right: 15px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            width: fit-content;
+            margin-top: 5px;
+        }
+
+        @media(min-width: 768px) {
+            .badge {
+                margin-top: 0;
+                margin-left: auto;
+            }
+        }
+
+        .badge-red { background-color: rgba(255, 77, 77, 0.12); color: var(--badge-red); border: 1px solid var(--badge-red); }
+        .badge-orange { background-color: rgba(255, 153, 0, 0.12); color: var(--badge-orange); border: 1px solid var(--badge-orange); }
+        .badge-blue { background-color: rgba(51, 153, 255, 0.12); color: var(--badge-blue); border: 1px solid var(--badge-blue); }
+        .badge-green { background-color: rgba(51, 204, 102, 0.12); color: var(--badge-green); border: 1px solid var(--badge-green); }
+        .badge-gray { background-color: rgba(160, 174, 192, 0.12); color: var(--badge-gray); border: 1px solid var(--badge-gray); }
+
+        .rank-details {
+            font-size: 14px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+
+        .alert-box {
+            border: 1px solid var(--accent-red);
+            background-color: rgba(158, 27, 27, 0.08);
+            padding: 25px;
+            border-radius: 6px;
+            margin-top: 25px;
+            border-left: 6px solid var(--accent-red);
+        }
+
+        .alert-box h3 {
+            color: #ff4d4d;
+            margin: 0 0 12px 0;
+            border: none;
+            padding: 0;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        .bullet-list li {
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .bullet-list li::before {
+            content: "■";
+            color: var(--accent-gold);
+            position: absolute;
+            left: 0;
+            font-size: 10px;
+            top: 2px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 25px;
+        }
+
+        @media (min-width: 1024px) {
+            nav {
+                justify-content: center;
+            }
+        }
+
+        @media print {
+            body * {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
+
+    <header>
+        <div class="logo-area">МИНИСТЕРСТВО ЮСТИЦИИ АРВЕНТЫ</div>
+        <div class="subtitle">Внутренний командно-правовой портал высшей суверенной юрисдикции</div>
+    </header>
+
+    <nav>
+        <button class="active" onclick="openTab('shield')">ГЛАВНЫЙ ЩИТ</button>
+        <button onclick="openTab('structure')">ВЕДОМСТВЕННАЯ СТРУКТУРА</button>
+        <button onclick="openTab('reglament')">ГОСУДАРСТВЕННЫЙ УСТАВ</button>
+        <button onclick="openTab('ranks-court')">СУД (РАНГИ)</button>
+        <button onclick="openTab('ranks-proc')">ПРОКУРАТУРА (РАНГИ)</button>
+        <button onclick="openTab('ranks-adv')">АДВОКАТУРА (РАНГИ)</button>
+        <button onclick="openTab('protocols')">ПРОТОКОЛЫ ДЕЙСТВИЙ</button>
+        <button onclick="openTab('rga')">СТАТУС RGA</button>
+    </nav>
+
+    <div class="container">
+
+        <!-- ВКЛАДКА 1: ГЛАВНЫЙ ЩИТ -->
+        <div id="shield" class="tab-content active">
+            <h2>Оперативно-стратегическая обстановка</h2>
+            <div class="card">
+                <div class="card-title">Манифест Тотальной Законности</div>
+                <p>Министерство юстиции функционирует как монолит правового и гражданского порядка Арвенты. Ликвидация разделения властей позволила превратить правосудие в непрерывный, защищенный от внешнего саботажа конвейер. Аппарат координирует правоприменение на всех уровнях: от пресечения городских беспорядков до деятельности закрытых военных трибуналов высшего звена.</p>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">Высшая присяга офицера юстиции</div>
+                    <p style="font-style: italic; color: var(--text-muted);">«Клянусь перед лицом Правителя и Народа Арвенты непоколебимо стоять на страже Государственного закона. Клянусь презирать личную выгоду, не ведать жалости к предателям и саботажникам, беспрекословно исполнять приказы руководства Министерства. Моя подпись под обвинением — закон Арвенты, мой приговор — воля государства. Если я предам эту клятву, пусть кара ведомства сотрет мое имя из анналов истории».</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Сводка оперативной готовности</div>
+                    <ul class="bullet-list">
+                        <li><strong>Общий уровень тревоги:</strong> Стабильный (Зеленый сектор).</li>
+                        <li><strong>Готовность Судебных Палат:</strong> 100% (Сессии ведутся в закрытом режиме).</li>
+                        <li><strong>Загрузка Следственных Изоляторов:</strong> 64% емкости.</li>
+                        <li><strong>Региональный надзор:</strong> Введены усиленные земские прокурорские патрули в приграничных округах.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ВКЛАДКА 2: СТРУКТУРА -->
+        <div id="structure" class="tab-content">
+            <h2>Архитектура центрального аппарата</h2>
+            <div class="card">
+                <div class="card-title">Внутреннее разделение обязанностей и зон контроля</div>
+                <p>Все подразделения Министерства юстиции Арвенты представляют собой части единого государственного механизма. Отделы изолированы функционально, но объединены общим оперативным руководством, единым бюджетом и общей базой данных правонарушений.</p>
+                
+                <div class="inner-block">
+                    <strong>Следственно-прокурорский блок:</strong> Авангард ведомства. Осуществляет выявление, оперативную разработку, допросы, сбор материальных улик и формирование обвинительных актов. Блок обладает сквозным правом инспекции любых подчиненных ведомств и воинских частей.
+                </div>
+                
+                <div class="inner-block">
+                    <strong>Судебная коллегия:</strong> Высшая инстанция принятия решений. Анализирует материалы, предоставленные прокурорами, проводит закрытые заседания и выносит окончательные вердикты, включая приговоры высшей категории тяжести. Решения коллегии обжалованию не подлежат.
+                </div>
+
+                <div class="inner-block">
+                    <strong>Палата адвокатов:</strong> Орган государственного правового контроля. Защитники Палаты контролируют соблюдение процессуального регламента на этапах следствия, собирают смягчающие факторы и координируют признание вины подсудимыми для ускорения судебного процесса.
+                </div>
+            </div>
+        </div>
+
+        <!-- ВКЛАДКА 3: УСТАВ -->
+        <div id="reglament" class="tab-content">
+            <h2>Внутренний уголовно-процессуальный кодекс</h2>
+            
+            <div class="card">
+                <div class="card-title">Статья 1. Абсолютный суверенитет юстиции</div>
+                <p>Любое вмешательство гражданских администраций, армейского командования или партийных лидеров в следственные и судебные процессы Министерства юстиции Арвенты квалифицируется как государственная измена. Министерство подчиняется исключительно приказам Правителя Арвенты.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Статья 2. Протокол допроса третьей степени</div>
+                <p>Следственно-прокурорский блок имеет право на применение специальных методов психологического и физического воздействия в отношении лиц, подозреваемых в шпионаже, дезертирстве или саботаже. Санкцию на проведение допроса третьей степени выдает Генеральный прокурор земли или Главный прокурор Арвенты.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Статья 3. Регламент конфискации имущества</div>
+                <p>Лица, признанные виновными Высшим или Военным судом по делам первой категории, лишаются всех прав на движимое и недвижимое имущество. Все активы осужденных переходят в прямой распорядительный фонд Министерства юстиции Арвенты для обеспечения нужд ведомства.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Статья 4. Исполнение приговоров военных трибуналов</div>
+                <p>Приговоры к высшей мере наказания, вынесенные Судьями Особого суда или Судьями Военных Трибуналов, приводятся в исполнение немедленно (в течение 12 часов с момента оглашения) силами Полевой Полиции под непосредственным контролем Первого прокурора округа.</p>
+            </div>
+        </div>
+
+        <!-- ВКЛАДКА 4: СУД -->
+        <div id="ranks-court" class="tab-content">
+            <h2>Ранги и полномочия Судебной коллегии</h2>
+            
+            <h3>Высшая инстанция</h3>
+            <div class="rank-card" style="border-left-color: var(--badge-red);">
+                <div class="rank-header">
+                    <span class="rank-title-text">Председатель Народной Судебной Палаты</span>
+                    <span class="badge badge-red">Высшая инстанция</span>
+                </div>
+                <p><strong>Описание:</strong> Высший политический суд.</p>
+                <div class="rank-details">
+                    <p><strong>Должностные полномочия:</strong> Руководство процессами по делам высшего эшелона власти, заговорам против Правителя, суды над министрами и высшим руководством Партии.</p>
+                    <p><strong>Уровень секретности:</strong> Абсолютный (Ранг 5). <strong>Категория оклада:</strong> Высший государственный тариф.</p>
+                </div>
+            </div>
+
+            <h3>Верховный суд</h3>
+            <div class="rank-card" style="border-left-color: var(--badge-red);">
+                <div class="rank-header">
+                    <span class="rank-title-text">Председатель Верховного Суда</span>
+                    <span class="badge badge-red">Верховный суд</span>
+                </div>
+                <p><strong>Описание:</strong> Глава судебной системы.</p>
+                <div class="rank-details">
+                    <p><strong>Должностные полномочия:</strong> Административное управление всеми судами Арвенты. Формирует прецедентное право, координирует распределение судейских кадров по землям.</p>
+                    <p><strong>Уровень секретности:</strong> Совершенно секретно (Ранг 5).</p>
+                </div>
+            </div>
+            <div class="rank-card" style="border-left-color: var(--badge-red);">
+                <div class="rank-header">
+                    <span class="rank-title-text">Верховный Судья</span>
+                    <span class="badge badge-red">Верховный суд</span>
+                </div>
+                <p><strong>Описание:</strong> Высшая судебная инстанция.</p>
+                <div class="rank-details">
+                    <p><strong>Должностные полномочия:</strong> Рассмотрение сложнейших уголовных дел, крупных экономических диверсий и апелляций от региональных коллегий.</p>
+                    <p><strong>Уровень секретности:</strong> Строго секретно (Ранг 4).</p>
+                </div>
+            </div>
+
+            <h3>Специальные полномочия</h3>
+            <div class="rank-card" style="border-left-color: var(--badge-orange);">
+                <div class="rank-header">
+                    <span class="rank-title-text">Судья Особого Суда</span>
+                    <span class="badge badge-orange">Специальные полномочия</span>
+                </div>
+                <p><strong>Описание:</strong> Рассмотрение дел военного типа.</p>
+                <div class="rank-details">
+                    <p><strong>Должностные полномочия:</strong> Председательство в закрытых военных трибуналах. Судит дезертиров ВВС и Сухопутных войск, шпионов, саботажников.</p>
+                    <p><strong>Уровень секретности:</strong> Специальный допуск (Ранг 4).</p>
+                </div>
+            </div>
+
+            <h3>Региональный уровень (Земли)</h3>
+            <div class="rank-card" style="border-left-color: var(--badge-gray);">
+                <div class="rank-header">
+                    <span class="rank-title-text">Председатель Высшего Земского Суда</span>
+                    <span class="badge badge-gray">Региональный уровень</span>
+                </div>
+                <p><strong>Описание:</strong> Руководитель юстиции региона.</p>
+                <div class="rank-details">
+                    <p><strong>Должностные полномочия:</strong> Контроль за деятельностью судебного аппарата конкретной Земли (провинции). Утверждает графики региональных сессий.</p>
+                </div>
+            </div>
+            <div class="rank-card" style="border-left-color: var(--badge-gray);">
+                <div class="rank-header">
+                    <span class="rank-title-text">Директор Земского Суда</span>
+                    <span class="badge badge-gray">Региональный уровень</span>
+                </div>
+                <p><strong>Описание:</strong> Управление окружным судом.</p>
+                <div class="rank-details">
+                    <p><strong>Должностные полномочия:</strong> Хозяйственное и процессуальное администрирование судов окружного масштаба, распределение нагрузки.</p>
+                </div>
+            </div>
+            <div class="rank-card" style="border-left-color: var(--badge-gray);">
+                <div class="rank-header">
+                    <span class="rank-title-text">Земский Судья</span>
+                    <span class="badge badge-gray">Региональный уровень</span>
+                </div>
+                <p><strong>Описание:</strong> Рассмотрение крупных дел.</p>
+                <div class="rank-details">
+                    <p><strong>Должностные полномочия:</strong> Ведение процессов по тяжким уголовным преступлениям, крупным грабежам и межрегиональным спорам.</p>
+                </div>
+            </div>
+
+            <h3>Местный уровень (Города)</h3>
+            <div class="rank-card" style="border-left-color: var(--badge-green);">
+                <div class="rank-header">
+                    <span class="rank-title-text">Участковый Судья</span>
+                    <span class="badge badge-green">Местный уровень</span>
+                </div>
+                <p><strong>Описание:</strong> Разбор мелких и повседневных дел.</p>
+                <div class="rank-details">
+                    <p><strong>Должностные полномочия:</strong> Рассмотрение бытовых правонарушений, мелких краж, нарушений комендантского часа.</p>
+                </div>
+            </div>
+
+            <h3>Начальный статус</h3>
+            <div class="rank-card" style="border-left-color: var(--badge-blue);">
+                <div class="rank-header">
+                    <span class="rank-title-text">Судебный Асессор</span>
+                    <span class="badge badge-blue">Начальный статус</span>
+                </div>
+                <p><strong>Описание:</strong> Младший чиновник, кандидат в судьи.</p>
+                <div class="rank-details">
+                    <p><strong>Должностные полномочия:</strong> Помощь судьям в подготовке протоколов, предварительный анализ материалов дел. Без права единоличного вердикта.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ВКЛАДКА 5: ПРОКУРАТУРА -->
+        <div id="ranks-proc" class="tab-content">
+            <h2>Ранги и полномочия Органов Прокуратуры</h2>
+            
+            <h3>Высшая инстанция и Народный суд</h3>
+            <div class="rank-card" style="border-left-color: var(--badge-red);">
+                <div class="rank-header">
+                    <span class="rank-title-text">Генеральный прокурор при Верховном Суде</span>
+                    <span class="badge badge-red">Высшая инстанция</span>
+                </div>
+                <p><strong>Описание:</strong> Высший надзорный чин.</p>
+                <div class="rank-details">
+                    <p><strong>Должностные полномочия:</strong> Лично контролирует законность действий государственного аппарата Арвенты. Выдает окончательные санкции на масштабные аресты.</p>
+                </div>
+            </div>
+            <div class="rank-card" style="border-left-color: var(--badge-red);">
+                <div class="rank-header">
+                    <span class="rank-title-text">Старший государственный прокурор Народной Палаты</span>
+                    <span class="badge badge-red">Высшая инстанция</span>
+                </div>
+                <p><strong>Описание:</strong> Senior обвинитель по ключевым политическим делам.</p>
+                <div class="rank-details">
+                    <p><strong>Должностные полномочия:</strong> Ведение обвинительной линии в отношении заговорщиков, высокопоставленных саботажников и предателей внутри Партии.</p>
+                </div>
+            </div>
+            <div class="rank-card" style="border-left-color: var(--badge-red);">
+                <div class="rank-header">
+                    <span class="rank-title-text">Государственный прокурор Народной Палаты</span>
+                    <span class="badge badge-red">Высшая инстанция</span>
+                </div>
+                <p><strong>Описание:</strong> Обвинение по делам о государственной измене.</p>
+                <div class="rank-details">
+                    <p><strong>Должностные полномочия:</strong> Курирование следственных групп по делам об идеологических диверсиях, подрыве государственного строя Арвенты.</p>
+                </div>
+            </div>
+
+            <h3>Региональный уровень (Земли)</h3>
+            <div class="rank-card" style="border-left-color: var(--badge-gray);">
+                <div class="rank-header">
+                    <span class="rank-title-text">Генеральный прокурор Высшего Земского Суда</span>
+                    <span class="badge badge-gray">Региональный уровень</span>
+                </div>
+                <p><strong>Описание:</strong> Руководитель прокуратуры региона.</p>
+                <div class="rank-details">
+                    <p><strong>Должностные полномочия:</strong> Полный контроль следственно-оперативной деятельности на территории всей Земли. Выдает санкции на спецмероприятия.</p>
+                </div>
+            </div>
+            <div class="rank-card" style="border-left-color: var(--badge-gray);">
+                <div class="rank-header">
+                    <span class="rank-title-text">Старший прокурор Земского Суда</span>
+                    <span class="badge badge-gray">Региональный уровень</span>
+                </div>
+                <p><strong>Описание:</strong> Куратор следственного отдела округа.</p>
+                <div class="rank-details">
+                    <p><strong>Должностные полномочия:</strong> Координация работы следователей-криминалистов, утверждение планов оперативно-розыскных мероприятий в округе.</p>
+                </div>
+            </div>
+            <div class="rank-card" style="border-left-color: var(--badge-gray);">
+                <div class="rank-header">
+                    <span class="rank-title-text">Первый прокурор Земского Суда</span>
+                    <span class="badge badge-gray">Региональный уровень</span>
+                </div>
+                <p><strong>Описание:</strong> Ведущий обвинитель по крупным уголовным делам.</p>
+                <div class="rank-details">
+                    <p><strong>Должностные полномочия:</strong> Личное ведение обвинения в судах по делам об убийствах, крупных хищениях и воинских преступлениях.</p>
+                </div>
+            </div>
+            <div class="rank-card" style="border-left-color: var(--badge-gray);">
+                <div class="rank-header">
+                    <span class="rank-title-text">Прокурор Земского Суда</span>
+                    <span class="badge badge-gray">Региональный уровень</span>
+                </div>
+                <p><strong>Описание:</strong> Обычный обвинитель окружного уровня.</p>
+                <div class="rank-details">
+                    <p><strong>Должностные полномочия:</strong> Проведение досудебных проверок, составление обвинительных заключений средней категории тяжести.</p>
+                </div>
+            </div>
+
+            <h3>Местный уровень (Города)</h3>
+            <div class="rank-card" style="border-left-color: var(--badge-green);">
+                <div class="rank-header">
+                    <span class="rank-title-text">Прокурор Участкового Суда</span>
+                    <span class="badge badge-green">Местный уровень</span>
+                </div>
+                <p><strong>Описание:</strong> Обвинение по мелким городским и бытовым правонарушениям.</p>
+                <div class="rank-details">
+                    <p><strong>Должностные полномочия:</strong> Надзор за деятельностью Гражданской полиции города, поддержание обвинения по мелким кражам и дракам.</p>
+                </div>
+            </div>
+
+            <h3>Начальный статус</h3>
+            <div class="rank-card" style="border-left-color: var(--badge-blue);">
+                <div class="rank-header">
+                    <span class="rank-title-text">Кандидат на должность прокурора</span>
+                    <span class="badge badge-blue">Начальный статус</span>
+                </div>
+                <p><strong>Описание:</strong> Младший сотрудник, проходит практику.</p>
+                <div class="rank-details">
+                    <p><strong>Должностные полномочия:</strong> Сбор рутинных справок, техническое оформление протоколов допросов, работа с архивами.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ВКЛАДКА 6: АДВОКАТУРА -->
+        <div id="ranks-adv" class="tab-content">
+            <h2>Ранги и полномочия Палаты Адвокатов</h2>
+            
+            <h3>Высшее руководство палаты</h3>
+            <div class="rank-card" style="border-left-color: var(--badge-red);">
+                <div class="rank-header">
+                    <span class="rank-title-text">Председатель Палаты Адвокатов</span>
+                    <span class="badge badge-red">Высшее руководство</span>
+                </div>
+                <p><strong>Описание:</strong> Глава национальной коллегии защитников.</p>
+                <div class="rank-details">
+                    <p><strong>Должностные полномочия:</strong> Стратегическое руководство государственной адвокатурой. Следит за идеологической преданностью членов Палаты.</p>
+                </div>
+            </div>
+            <div class="rank-card" style="border-left-color: var(--badge-red);">
+                <div class="rank-header">
+                    <span class="rank-title-text">Вице-председатель Палаты Адвокатов</span>
+                    <span class="badge badge-red">Высшее руководство</span>
+                </div>
+                <p><strong>Описание:</strong> Заместитель руководителя, куратор правовых комитетов.</p>
+                <div class="rank-details">
+                    <p><strong>Должностные полномочия:</strong> Руководство дисциплинарной комиссией Палаты. Проводит чистки рядов адвокатуры от деструктивных элементов.</p>
+                </div>
+            </div>
+
+            <h3>Региональное управление (Земли)</h3>
+            <div class="rank-card" style="border-left-color: var(--badge-gray);">
+                <div class="rank-header">
+                    <span class="rank-title-text">Председатель Регионального Совета Адвокатов</span>
+                    <span class="badge badge-gray">Региональное управление</span>
+                </div>
+                <p><strong>Описание:</strong> Руководитель адвокатуры на уровне земли.</p>
+                <div class="rank-details">
+                    <p><strong>Должностные полномочия:</strong> Распределение назначений государственных защитников по резонансным делам в региональных Земских судах.</p>
+                </div>
+            </div>
+            <div class="rank-card" style="border-left-color: var(--badge-gray);">
+                <div class="rank-header">
+                    <span class="rank-title-text">Член Регионального Совета Адвокатов</span>
+                    <span class="badge badge-gray">Региональное управление</span>
+                </div>
+                <p><strong>Описание:</strong> Окружной советник.</p>
+                <div class="rank-details">
+                    <p><strong>Должностные полномочия:</strong> Инспектирование городских адвокатских контор, аудит процессуальных документов защиты на местах.</p>
+                </div>
+            </div>
+
+            <h3>Высшая судебная защита</h3>
+            <div class="rank-card" style="border-left-color: var(--badge-orange);">
+                <div class="rank-header">
+                    <span class="rank-title-text">Адвокат при Верховном Суде</span>
+                    <span class="badge badge-orange">Высшая судебная защита</span>
+                </div>
+                <p><strong>Описание:</strong> Элитный защитник высших инстанций.</p>
+                <div class="rank-details">
+                    <p><strong>Должностные полномочия:</strong> Осуществление процессуальной защиты подсудимых в Верховной Коллегии и Народной Судебной Палате. Высший допуск.</p>
+                </div>
+            </div>
+
+            <h3>Практикующие специалисты</h3>
+            <div class="rank-card" style="border-left-color: var(--badge-green);">
+                <div class="rank-header">
+                    <span class="rank-title-text">Адвокат-нотариус</span>
+                    <span class="badge badge-green">Практикующий специалист</span>
+                </div>
+                <p><strong>Описание:</strong> Специалист по заверению документов и актов.</p>
+                <div class="rank-details">
+                    <p><strong>Должностные полномочия:</strong> Государственное заверение актов передачи имущества, конфискованного в пользу Министерства юстиции.</p>
+                </div>
+            </div>
+            <div class="rank-card" style="border-left-color: var(--badge-green);">
+                <div class="rank-header">
+                    <span class="rank-title-text">Адвокат</span>
+                    <span class="badge badge-green">Практикующий специалист</span>
+                </div>
+                <p><strong>Описание:</strong> Основной защитник в судах общей юрисдикции.</p>
+                <div class="rank-details">
+                    <p><strong>Должностные полномочия:</strong> Защита гражданских и военных лиц. Обязан содействовать прокурору в склонении подсудимого к признанию вины.</p>
+                </div>
+            </div>
+
+            <h3>Начальный статус</h3>
+            <div class="rank-card" style="border-left-color: var(--badge-blue);">
+                <div class="rank-header">
+                    <span class="rank-title-text">Младший адвокат</span>
+                    <span class="badge badge-blue">Начальный статус</span>
+                </div>
+                <p><strong>Описание:</strong> Начинающий юрист.</p>
+                <div class="rank-details">
+                    <p><strong>Должностные полномочия:</strong> Защита интересов подсудимых по мелким административным делам в Участковых судах городов.</p>
+                </div>
+            </div>
+            <div class="rank-card" style="border-left-color: var(--badge-blue);">
+                <div class="rank-header">
+                    <span class="rank-title-text">Помощник адвоката</span>
+                    <span class="badge badge-blue">Начальный статус</span>
+                </div>
+                <p><strong>Описание:</strong> Стажёр, сбор материалов.</p>
+                <div class="rank-details">
+                    <p><strong>Должностные полномочия:</strong> Техническая работа, опрос гражданских свидетелей, ведение архива. Не допускается к заседаниям.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ВКЛАДКА 7: ПРОТОКОЛЫ ДЕЙСТВИЙ -->
+        <div id="protocols" class="tab-content">
+            <h2>Внутренние протоколы правового конвейера</h2>
+            <div class="card">
+                <div class="card-title">Протокол 1-А: Порядок изоляции и ареста</div>
+                <p>Следственно-прокурорский блок инициирует уголовное или дисциплинарное производство. Подозреваемое лицо немедленно задерживается силами Полевой или Гражданской полиции и этапируется в центральный спецприемник Министерства юстиции. Первые 72 часа задержанный содержится в условиях полной информационной изоляции для предотвращения сговора.</p>
+            </div>
+            <div class="card">
+                <div class="card-title">Протокол 2-Б: Созыв Чрезвычайных Судебных Троек</div>
+                <p>В случае фиксации массовых беспорядков или актов военного саботажа на объектах ВВС и Сухопутных войск, Председатель Верховной Судебной Коллегии санкционирует созыв Чрезвычайной Судебной Тройки. Тройка состоит из двух судей Особого Суда и одного Старшего прокурора. Заседание проводится непосредственно на месте происшествия без участия свидетелей. Решение выносится моментально.</p>
+            </div>
+            <div class="card">
+                <div class="card-title">Протокол 3-В: Технология Государственного Покаяния</div>
+                <p>Назначенный офицер Палаты Адвокатов обязан провести с подсудимым комплексную разъяснительную работу. Адвокат доносит до сознания обвиняемого тщетность сопротивления государственному конвейеру юстиции и оформляет «Акт Государственного Покаяния». Подписание акта гарантирует замену смертной казни на пожизненные исправительные работы в рудниках.</p>
+            </div>
+        </div>
+
+        <!-- ВКЛАДКА 8: RGA -->
+        <div id="rga" class="tab-content">
+            <h2>Особый статус Ruler Guard Apparatus</h2>
+            <div class="card">
+                <p>В соответствии с прямым указом Правителя Арвенты, структура <strong>Ruler Guard Apparatus (RGA)</strong>, куда входят Министерство Внутренних Дел (МВД), Службу Внешней Разведки (СВР) и Охрана правителя, полностью выведена из-под юрисдикции Министерства юстиции.</p>
+                
+                <div class="alert-box">
+                    <h3>КАТЕГОРИЧЕСКИ ЗАПРЕЩЕНО:</h3>
+                    <p>Проводить следственные действия, обыски, допросы или аресты в отношении действующих оперативников и руководства RGA. При обнаружении следов RGA в уголовных делах, материалы должны быть немедленно засекречены и переданы в Управление внутренней безопасности RGA.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function openTab(tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            const buttons = document.querySelectorAll('nav button');
+            buttons.forEach(button => button.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // Блокировка горячих клавиш защиты
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 65)) {
+                e.preventDefault();
+                return false;
+            }
+            if (e.keyCode === 123) {
+                e.preventDefault();
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    </script>
+</body>
+</html>
